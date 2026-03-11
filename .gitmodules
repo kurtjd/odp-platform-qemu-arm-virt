@@ -1,6 +1,3 @@
-[submodule "secure-services/odp-secure-services"]
-	path = secure-services/odp-secure-services
-	url = https://github.com/OpenDevicePartnership/odp-secure-services.git
 [submodule "patina-qemu"]
 	path = bios/patina-qemu
 	url = https://github.com/OpenDevicePartnership/patina-qemu.git
