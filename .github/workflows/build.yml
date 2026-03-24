@@ -55,9 +55,9 @@ jobs:
           # and remove the `cacheFrom` entries for the dymk images.
           push: never
 
-  build-bios:
-    name: Build QEMU Bios
-    runs-on: ubuntu-24.04
+  build-test-bios:
+    name: Build & Test QEMU Bios
+    runs-on: ubuntu-24.04-arm
     steps:
       - name: Cache git folder
         uses: actions/cache@v4
@@ -91,7 +91,9 @@ jobs:
             ghcr.io/opendevicepartnership/odp-platform-qemu-sbsa-devcontainer:cache
           push: never
           env: |
+            CI=true
             GIT_COMMITTER_NAME=vscode
             GIT_COMMITTER_EMAIL=vscode@example.com
           runCmd: |
             make all
+            make e2e-test QEMU_TIMEOUT=900
