@@ -61,7 +61,6 @@ RUN apt-get update && \
     && \
     rm -rf /var/lib/apt/lists/*
 
-ENV GCC5_AARCH64_PREFIX=/usr/bin/aarch64-linux-gnu-
 ENV IN_DEVCONTAINER=1
 
 RUN python3 -m venv /opt/venv && \
@@ -107,8 +106,32 @@ RUN RUST_VERSION=1.92.0 && \
     cargo install cargo-binstall@1.17.7 --locked && \
     cargo binstall -y cargo-binutils && \
     cargo binstall -y cargo-make@0.37.24 && \
-    cargo binstall -y cargo-tarpaulin@0.31.5
+    cargo binstall -y cargo-tarpaulin@0.31.5 && \
+    cargo binstall -y sccache@0.10.0
 USER root
+
+#
+# sccache: wrap both rustc and the GCC cross-compiler
+#
+ENV RUSTC_WRAPPER="sccache"
+
+# Create sccache-wrapped scripts for the aarch64 GCC cross-toolchain.
+# The UEFI build system invokes these via $GCC5_AARCH64_PREFIX, so placing
+# the wrappers earlier in $PATH makes it transparent.
+# - Compilers (gcc, cc) go through sccache for caching.
+# - Other tools (gcc-ar, objcopy, etc.) are passed through directly.
+# Note: only gcc is installed (not g++), so we only wrap what exists.
+RUN mkdir -p /usr/local/lib/sccache && \
+    for tool in gcc cc; do \
+        printf '#!/bin/sh\nexec sccache /usr/bin/aarch64-linux-gnu-%s "$@"\n' "$tool" \
+            > /usr/local/lib/sccache/aarch64-linux-gnu-$tool && \
+        chmod +x /usr/local/lib/sccache/aarch64-linux-gnu-$tool; \
+    done && \
+    for tool in gcc-ar gcc-nm gcc-ranlib objcopy objdump ld as strip readelf ar ranlib nm; do \
+        ln -sf /usr/bin/aarch64-linux-gnu-$tool /usr/local/lib/sccache/aarch64-linux-gnu-$tool 2>/dev/null || true; \
+    done
+ENV GCC5_AARCH64_PREFIX=/usr/local/lib/sccache/aarch64-linux-gnu-
+ENV PATH="/usr/local/lib/sccache:$PATH"
 
 # Install stuart tools for building UEFI
 USER vscode
