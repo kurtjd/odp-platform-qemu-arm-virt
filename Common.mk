@@ -33,6 +33,11 @@ endif
 # serial, display, and any extra device flags.
 BIOS_FV_DIR := mod/uefi/patina-qemu/Build/QemuSbsaPkg/DEBUG_CLANGPDB/FV
 
+# Path to the EC firmware binary (relative to repo root). Built by
+# `make -C mod ec`. Top-level recipes (e2e-test) reference it without
+# owning the build rule.
+EC_BINARY := mod/ec/platform/dev-qemu/target/riscv32imac-unknown-none-elf/release/dev-qemu
+
 QEMU_COMMON_ARGS := \
 	-semihosting -cpu max,sve=off,sme=off -smp 4 -machine sbsa-ref \
 	-global driver=cfi.pflash01,property=secure,value=on -m 4G \
@@ -46,13 +51,12 @@ QEMU_COMMON_ARGS := \
 # ------------------------------------------------------------
 # Devcontainer command variables
 # ------------------------------------------------------------
-ifeq ($(IN_DEVCONTAINER),1)
-DOCKER_COMMAND_PREFIX :=
-REPO_ROOT := $(REPO_ROOT_IN_HOST)
-else
-DOCKER_COMMAND_PREFIX := devcontainer exec $(DEVCONTAINER_WORKSPACE_FLAGS)
-REPO_ROOT := $(REPO_ROOT_IN_DEVCONTAINER)
-endif
+# scripts/dc-run.sh is the single dispatcher: it detects in/out of the
+# devcontainer (via IN_DEVCONTAINER / DC_RUN_REEXEC) and either runs the
+# command directly or re-execs itself via `devcontainer exec`. Recipes use
+# `$(DC_RUN) [-w <workdir>] -- cmd args...` instead of the old shell-in-shell
+# `$(DOCKER_COMMAND_PREFIX) bash -lc "cd ... && ..."` pattern.
+DC_RUN := $(REPO_ROOT_IN_HOST)/scripts/dc-run.sh
 
 
 $(DEVCONTAINER_STAMP): $(DEVCONTAINER_FILES)
