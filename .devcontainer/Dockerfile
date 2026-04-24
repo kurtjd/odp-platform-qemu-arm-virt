@@ -104,13 +104,14 @@ USER vscode
 RUN RUST_VERSION=1.92.0 && \
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain ${RUST_VERSION} --profile minimal && \
     rustup component add clippy rustfmt rust-src && \
-    rustup target add aarch64-unknown-none aarch64-unknown-uefi && \
+    rustup target add aarch64-unknown-none aarch64-unknown-uefi riscv32imac-unknown-none-elf && \
     rustup component add llvm-tools-preview && \
     cargo install cargo-binstall@1.17.7 --locked && \
     cargo binstall -y cargo-binutils && \
     cargo binstall -y cargo-make@0.37.24 && \
     cargo binstall -y cargo-tarpaulin@0.31.5 && \
-    cargo binstall -y sccache@0.10.0
+    cargo binstall -y sccache@0.10.0 && \
+    cargo binstall -y defmt-print@1.0.0
 USER root
 
 #
@@ -142,7 +143,8 @@ COPY mod/uefi/patina-qemu/pip-requirements.txt /tmp/pip-requirements.txt
 RUN pip install --upgrade -r /tmp/pip-requirements.txt pip lcov_cobertura
 USER root
 
-COPY --from=ghcr.io/opendevicepartnership/odp-qemu-builder/qemu@sha256:2ce244b7b6f49e598c53021dd701a99e8b1bdf6537a3c4bf02a7e6cb3923304d /usr/local/bin/qemu-system-aarch64 /usr/local/bin/qemu-system-aarch64
-COPY --from=ghcr.io/opendevicepartnership/odp-qemu-builder/qemu@sha256:2ce244b7b6f49e598c53021dd701a99e8b1bdf6537a3c4bf02a7e6cb3923304d /usr/local/share/qemu/ /usr/local/share/qemu/
+COPY --from=ghcr.io/opendevicepartnership/odp-qemu-builder/qemu@sha256:94b4d88aea7fadc7788dfe7fd470168a36ad5b1e0a5e5763ef190557d33f367a /usr/local/bin/qemu-system-aarch64 /usr/local/bin/qemu-system-aarch64
+COPY --from=ghcr.io/opendevicepartnership/odp-qemu-builder/qemu@sha256:94b4d88aea7fadc7788dfe7fd470168a36ad5b1e0a5e5763ef190557d33f367a /usr/local/bin/qemu-system-riscv32 /usr/local/bin/qemu-system-riscv32
+COPY --from=ghcr.io/opendevicepartnership/odp-qemu-builder/qemu@sha256:94b4d88aea7fadc7788dfe7fd470168a36ad5b1e0a5e5763ef190557d33f367a /usr/local/share/qemu/ /usr/local/share/qemu/
 
 USER vscode
