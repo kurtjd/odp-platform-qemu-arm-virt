@@ -6,7 +6,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-include ../Common.mk
+include ../../Common.mk
 
 # ------------------------------------------------------------
 # Workspace setup
@@ -15,8 +15,8 @@ WORKSPACE ?= $(CURDIR)
 OS_IMAGE_OUTPUT := build/winvos.qcow2
 OS_IMAGE_INPUT := prebuilt/ValidationOS.vhdx
 
-BIOS_FLASH0 := ../$(BIOS_FV_DIR)/SECURE_FLASH0.fd
-BIOS_EFI    := ../$(BIOS_FV_DIR)/QEMU_EFI.fd
+BIOS_FLASH0 := ../../$(BIOS_FV_DIR)/SECURE_FLASH0.fd
+BIOS_EFI    := ../../$(BIOS_FV_DIR)/QEMU_EFI.fd
 BIOS_OUTPUTS := $(BIOS_FLASH0) $(BIOS_EFI)
 
 # ------------------------------------------------------------

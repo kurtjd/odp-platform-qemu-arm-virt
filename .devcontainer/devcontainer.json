@@ -18,6 +18,7 @@
     "--device=/dev/ttyACM0:/dev/ttyQEMU0"
   ],
   "mounts": [],
+  "postStartCommand": "sudo chmod 666 /dev/ttyQEMU0",
   "containerEnv": {
     "SCCACHE_DIR": "${containerWorkspaceFolder}/.sccache"
   },
@@ -25,7 +26,9 @@
     "vscode": {
       "extensions": [
         "rust-lang.rust-analyzer",
-        "bierner.markdown-mermaid"
+        "bierner.markdown-mermaid",
+        "ms-vscode.makefile-tools",
+        "tamasfe.even-better-toml"
       ]
     }
   }
