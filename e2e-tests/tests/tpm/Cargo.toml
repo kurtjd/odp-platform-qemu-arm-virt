@@ -1,3 +1,8 @@
+# Cargo package manifest for the TPM E2E test application.
+#
+# SPDX-License-Identifier: MIT
+#
+
 [package]
 name = "tpm"
 version = "0.1.0"

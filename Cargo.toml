@@ -1,4 +1,7 @@
 # Dummy root crate used solely to drive husky-rs git hook installation.
+#
+# SPDX-License-Identifier: MIT
+#
 # Running `cargo build` or `cargo test` here will configure `.husky/` as
 # the git hooks directory via husky-rs's build script.
 #

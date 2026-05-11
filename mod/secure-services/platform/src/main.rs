@@ -1,5 +1,7 @@
-// This project is dual-licensed under Apache 2.0 and MIT terms.
-// See LICENSE-APACHE and LICENSE-MIT for details.
+//! QEMU EC Secure Partition Service entry point.
+//!
+//! SPDX-License-Identifier: MIT
+//!
 
 #![cfg_attr(target_os = "none", no_std)]
 #![cfg_attr(target_os = "none", no_main)]

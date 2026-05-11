@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Dispatch a command inside or outside the devcontainer.
 #
+# SPDX-License-Identifier: MIT
+#
 # Usage:
 #   scripts/dc-run.sh [-w <workdir>] -- <command> [args...]
 #   scripts/dc-run.sh [-w <workdir>] --shell        # interactive bash

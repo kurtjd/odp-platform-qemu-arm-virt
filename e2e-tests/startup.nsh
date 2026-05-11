@@ -1,3 +1,8 @@
+# UEFI shell startup script for E2E tests.
+#
+# SPDX-License-Identifier: MIT
+#
+
 @echo -off
 for %a in fs4 fs3 fs2 fs1 fs0
   if exist %a:\thermal.efi then

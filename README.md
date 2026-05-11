@@ -1,7 +1,13 @@
 # odp-platform-qemu-sbsa
+
+[![Build](https://github.com/OpenDevicePartnership/odp-platform-qemu-sbsa/actions/workflows/build.yml/badge.svg)](https://github.com/OpenDevicePartnership/odp-platform-qemu-sbsa/actions/workflows/build.yml)
+[![Check Submodules](https://github.com/OpenDevicePartnership/odp-platform-qemu-sbsa/actions/workflows/check-submodules.yml/badge.svg)](https://github.com/OpenDevicePartnership/odp-platform-qemu-sbsa/actions/workflows/check-submodules.yml)
+[![LICENSE](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
+
 This repo contains all the necessary content for working on QEMU for SBSA (arm64) platform
 
 ## Quick Start Guide
+
 This configuration has been tested on a windows running WSL Ubuntu 24.04 with Visual Studio Code.
 
 After cloning the repository locally to WSL make sure from Visual Studio Code you have the WSL extension

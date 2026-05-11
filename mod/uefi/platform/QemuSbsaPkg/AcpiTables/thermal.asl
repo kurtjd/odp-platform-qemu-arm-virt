@@ -1,3 +1,8 @@
+// FF-A (Firmware Framework for Arm) ACPI device node
+//
+// SPDX-License-Identifier: MIT
+//
+
 // Sample Definition of FAN ACPI
 
 Device(SKIN) {

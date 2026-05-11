@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# push-devcontainer-cache.sh
+# Rebuild and push the devcontainer image cache to GHCR
+#
+# SPDX-License-Identifier: MIT
 #
 # Rebuilds and pushes the devcontainer image cache to GHCR using the
 # devcontainer CLI. This ensures the pushed cache uses the same Dockerfile

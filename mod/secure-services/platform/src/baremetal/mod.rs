@@ -1,3 +1,8 @@
+//! Baremetal platform support module for the QEMU EC Secure Partition.
+//!
+//! SPDX-License-Identifier: MIT
+//!
+
 mod interrupt;
 mod panic;
 

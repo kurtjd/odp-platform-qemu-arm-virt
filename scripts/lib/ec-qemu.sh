@@ -1,6 +1,7 @@
 # shellcheck shell=bash
-# Sourceable library — provides start_ec_qemu and discover_ec_pty.
-# Do not execute directly.
+# Sourceable library — provides start_ec_qemu and discover_ec_pty (do not execute directly).
+#
+# SPDX-License-Identifier: MIT
 #
 # Required on PATH: qemu-system-riscv32, defmt-print, stdbuf, setsid, timeout
 #

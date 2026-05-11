@@ -1,12 +1,10 @@
-# Build/clean for everything under mod/ — keeps mod-specific impl details
-# (EC cargo build, secure-services flavors, double UEFI invocation) out of
-# the top-level Makefile. Top-level delegates with `make -C mod <target>`.
+# Build/clean for everything under mod/
 #
-# ## License
+# SPDX-License-Identifier: MIT
 #
-# Copyright (c) Microsoft Corporation.
-#
-# SPDX-License-Identifier: Apache-2.0
+# Keeps mod-specific impl details (EC cargo build, secure-services flavors,
+# double UEFI invocation) out of the top-level Makefile. Top-level delegates
+# with `make -C mod <target>`.
 
 include ../Common.mk
 

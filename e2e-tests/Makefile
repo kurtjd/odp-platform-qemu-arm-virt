@@ -1,13 +1,9 @@
-# E2E Tests for EC Secure Partition
+# E2E Tests for the EC Secure Partition
+#
+# SPDX-License-Identifier: MIT
 #
 # Builds Rust UEFI test applications, launches QEMU with the existing
 # BIOS firmware, and executes tests against the secure partition.
-#
-# ## License
-#
-# Copyright (c) Microsoft Corporation.
-#
-# SPDX-License-Identifier: Apache-2.0
 
 SHELL := /bin/bash
 

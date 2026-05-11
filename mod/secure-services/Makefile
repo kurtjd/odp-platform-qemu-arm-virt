@@ -1,10 +1,7 @@
-# ODP SBSA Build file
+# Secure Services build targets for the ODP QEMU SBSA Platform.
 #
-# ## License
+# SPDX-License-Identifier: MIT
 #
-# Copyright (c) Microsoft Corporation.
-#
-# SPDX-License-Identifier: Apache-2.0
 
 QEMU_RUST_BIN := Build/qemu-ec-sp.bin
 QEMU_RUST_DTS := Build/qemu-ec-sp.dts

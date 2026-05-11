@@ -1,8 +1,7 @@
-// Copyright (c) Microsoft Corporation.
-// SPDX-License-Identifier: Apache-2.0
-
 //! Minimal `log` backend that writes to PL011 UART0 on the QEMU sbsa-ref
 //! machine (MMIO address `0x6000_0000`).
+//!
+//! SPDX-License-Identifier: MIT
 //!
 //! Call [`init`] once at startup to install the logger globally.
 

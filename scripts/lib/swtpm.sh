@@ -1,6 +1,7 @@
 # shellcheck shell=bash
-# Sourceable library — provides start_swtpm and wait_for_swtpm_socket.
-# Do not execute directly.
+# Sourceable library — provides start_swtpm and wait_for_swtpm_socket (do not execute directly).
+#
+# SPDX-License-Identifier: MIT
 #
 # Required on PATH: swtpm
 #

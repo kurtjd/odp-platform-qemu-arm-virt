@@ -1,2 +1,7 @@
+# Cargo build configuration for the Secure Services platform.
+#
+# SPDX-License-Identifier: MIT
+#
+
 [build]
 target = "aarch64-unknown-none"

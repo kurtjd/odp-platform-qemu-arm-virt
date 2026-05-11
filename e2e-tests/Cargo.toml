@@ -1,3 +1,8 @@
+# Cargo workspace manifest for the E2E test suite.
+#
+# SPDX-License-Identifier: MIT
+#
+
 [workspace]
 members = ["ffa", "uart-logger", "test-support", "tests/thermal", "tests/tpm"]
 resolver = "2"
