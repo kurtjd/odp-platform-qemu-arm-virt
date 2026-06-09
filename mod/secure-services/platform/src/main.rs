@@ -20,7 +20,9 @@ fn main() {
 ///
 /// Must match the device-region mapping in the SP manifest (`qemu-ec-sp.dts`).
 #[cfg(target_os = "none")]
-const TPM_CRB_MMIO_BASE: u64 = 0x10000210000;
+const TPM_CRB_MMIO_BASE: u64 = 0x40200000;
+#[cfg(target_os = "none")]
+const TPM_CRB_TPM_BASE: u64 = 0x0C000000;
 
 #[cfg(target_os = "none")]
 fn main() -> ! {
@@ -37,7 +39,7 @@ fn main() -> ! {
 
     // SAFETY: TPM_CRB_MMIO_BASE is mapped as a device region in the SP manifest (qemu-ec-sp.dts).
     unsafe {
-        tpm.init(TPM_CRB_MMIO_BASE);
+        tpm.init(TPM_CRB_MMIO_BASE, TPM_CRB_TPM_BASE);
     }
 
     MessageHandler::new()
