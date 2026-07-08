@@ -4,6 +4,9 @@
 //
 
 // Sample Definition of FAN ACPI
+//
+// Note: We use sensor and fan instance 0 in here where hardcoded
+// This makes it easier to work with dev platforms which will always have single sensor and fan
 
 Device(SKIN) {
   Name(_HID, "MSFT000A")
@@ -28,7 +31,7 @@ Device(SKIN) {
     CreateDwordField(BUFF,32,RTMP) // Out – Temp value
 
     Store(0x1, CMDD) // EC_THM_GET_TMP
-    Store(0x2, TZID) // Temp zone ID for SKIIN
+    Store(0x0, TZID) // Temp zone ID for SKIIN
     Store(ToUUID("31f56da7-593c-4d72-a4b3-8fc7171ac073"), UUID)
     Store(Store(BUFF, \_SB_.FFA0.FFAC), BUFF)
     If(LEqual(STAT,0x0) ) // Check FF-A successful?
@@ -78,7 +81,7 @@ Device(SKIN) {
           Return(0x3) // Support Function 0 and Function 1
         }
         Case (1) {
-          Return( THRS(0x2, Arg3) ) // Call to function to set threshold
+          Return( THRS(0x0, Arg3) ) // Call to function to set threshold
         }
       }
     }
@@ -143,8 +146,7 @@ Device(CIO1) {
     CreateByteField(BUFF,33,INST)  //  In – Thermal Zone identifier
     CreateWordField(BUFF,34,VLEN)  //  In - Variable length
     CreateField(BUFF,288,128,VUID) //  In - UUID or variable to read
-    CreateDWordField(BUFF,32,VAL0) // Out – Return status
-    CreateDWordField(BUFF,36,VAL1) // Out – Data Value
+    CreateDWordField(BUFF,32,VAL0) // Out – Data Value
 
     Store(ToUUID("31f56da7-593c-4d72-a4b3-8fc7171ac073"), UUID)
     Store(0x5, CMDD) // EC_THM_GET_VAR
@@ -154,8 +156,9 @@ Device(CIO1) {
     Store(Store(BUFF, \_SB_.FFA0.FFAC), BUFF)
     If(LEqual(STAT,0x0) ) // Check FF-A successful?
     {
-        CIOD[0] = VAL0 // Status
-        CIOD[1] = VAL1 // Data
+        // We hardcode 0 for success due to the way we handle serde on the EC side
+        CIOD[0] = 0 // Success
+        CIOD[1] = VAL0 // Data
     }
     Return (CIOD)
   }
@@ -203,13 +206,13 @@ Device(CIO1) {
             Return (Buffer() {0x0f, 0x00, 0x00, 0x00})
           }
           Case(1) {
-            Return(GVAR(1,ToUuid("db261c77-934b-45e2-9742-256c62badb7a"))) // MinRPM
+            Return(GVAR(0,ToUuid("db261c77-934b-45e2-9742-256c62badb7a"))) // MinRPM
           }
           Case(2) {
-            Return(GVAR(1,ToUuid("5cf839df-8be7-42b9-9ac5-3403ca2c8a6a"))) // MaxRPM
+            Return(GVAR(0,ToUuid("5cf839df-8be7-42b9-9ac5-3403ca2c8a6a"))) // MaxRPM
           }
           Case(3) {
-            Return(GVAR(1,ToUuid("adf95492-0776-4ffc-84f3-b6c8b5269683"))) // CurrentRPM
+            Return(GVAR(0,ToUuid("adf95492-0776-4ffc-84f3-b6c8b5269683"))) // CurrentRPM
           }
         }
         // If we don't match any parameters set invalid parameter in status
@@ -225,13 +228,13 @@ Device(CIO1) {
             Return (Buffer() {0x0f, 0x00, 0x00, 0x00})
           }
           Case(1) {
-            Return(SVAR(1,ToUuid("db261c77-934b-45e2-9742-256c62badb7a"),Arg3)) // MinRPM
+            Return(SVAR(0,ToUuid("db261c77-934b-45e2-9742-256c62badb7a"),Arg3)) // MinRPM
           }
           Case(2) {
-            Return(SVAR(1,ToUuid("5cf839df-8be7-42b9-9ac5-3403ca2c8a6a"),Arg3)) // MaxRPM
+            Return(SVAR(0,ToUuid("5cf839df-8be7-42b9-9ac5-3403ca2c8a6a"),Arg3)) // MaxRPM
           }
           Case(3) {
-            Return(SVAR(1,ToUuid("adf95492-0776-4ffc-84f3-b6c8b5269683"),Arg3)) // CurrentRPM
+            Return(SVAR(0,ToUuid("adf95492-0776-4ffc-84f3-b6c8b5269683"),Arg3)) // CurrentRPM
           }
         }
         // Invalid parameter
