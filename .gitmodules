@@ -4,3 +4,8 @@
 [submodule "odp-secure-services"]
 	path = mod/secure-services/odp-secure-services
 	url = https://github.com/OpenDevicePartnership/odp-secure-services.git
+[submodule "mod/ec"]
+	path = mod/ec
+	# TODO: restore to an OpenDevicePartnership URL/branch before merging
+	url = https://github.com/kurtjd/odp-embedded-controller.git
+	branch = winhec-demo

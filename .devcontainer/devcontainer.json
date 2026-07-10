@@ -14,11 +14,7 @@
     5008,
     5900 // VNC
   ],
-  "runArgs": [
-    "--device=/dev/ttyACM0:/dev/ttyQEMU0"
-  ],
   "mounts": [],
-  "postStartCommand": "sudo chmod 666 /dev/ttyQEMU0",
   "containerEnv": {
     "SCCACHE_DIR": "${containerWorkspaceFolder}/.sccache"
   },

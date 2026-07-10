@@ -59,6 +59,7 @@ RUN apt-get update && \
     gcc \
     gcc-aarch64-linux-gnu \
     qemu-utils \
+    qemu-system-misc \
     swtpm \
     swtpm-tools \
     && \
@@ -110,6 +111,7 @@ RUN RUST_VERSION=1.92.0 && \
     cargo binstall -y cargo-binutils && \
     cargo binstall -y cargo-make@0.37.24 && \
     cargo binstall -y cargo-tarpaulin@0.31.5 && \
+    cargo binstall -y defmt-print@1.1.0 && \
     cargo binstall -y sccache@0.10.0
 USER root
 

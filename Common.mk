@@ -44,6 +44,17 @@ QEMU_COMMON_ARGS := \
 	-device usb-kbd,id=input1,bus=usb.0,port=2
 
 # ------------------------------------------------------------
+# EC (embedded controller) serial link
+# ------------------------------------------------------------
+# The EC firmware runs in a separate RISC-V QEMU instance (see `make run_ec`
+# / `make demo`) and exposes its UART over a UNIX-domain socket. The SBSA
+# QEMU instance attaches a second serial port to that same socket, giving the
+# firmware/OS a link to talk to the EC. EC side is the server; SBSA side is a
+# reconnecting client so start order doesn't matter.
+EC_SERIAL_SOCK := /tmp/qemu-ec-serial.sock
+EC_SERIAL_FLAGS := -chardev socket,id=ec0,path=$(EC_SERIAL_SOCK),reconnect=1 -serial chardev:ec0
+
+# ------------------------------------------------------------
 # Devcontainer command variables
 # ------------------------------------------------------------
 ifeq ($(IN_DEVCONTAINER),1)
