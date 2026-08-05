@@ -6,4 +6,5 @@
 	url = https://github.com/OpenDevicePartnership/odp-secure-services.git
 [submodule "odp-embedded-controller"]
 	path = mod/ec
-	url = https://github.com/OpenDevicePartnership/odp-embedded-controller.git
+	# TODO: restore to OpenDevicePartnership URL before merging (temp keyboard-demo)
+	url = https://github.com/kurtjd/odp-embedded-controller.git

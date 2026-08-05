@@ -96,6 +96,48 @@
             "problemMatcher": []
         },
         {
+            "label": "run_ec (logged)",
+            "detail": "Same as run_ec, but tees output to /tmp/ec-run.log so the picocom task can discover the EC UART PTY.",
+            "type": "shell",
+            "command": "rm -f /tmp/ec-run.log; make run_ec 2>&1 | tee /tmp/ec-run.log",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "always",
+                "group": "kbd-demo"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "picocom_ec",
+            "detail": "Wait for the EC UART PTY (from /tmp/ec-run.log) and attach picocom so you can type into the virtual keyboard.",
+            "type": "shell",
+            "command": "scripts/ec-picocom.sh /tmp/ec-run.log 115200",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "panel": "dedicated",
+                "reveal": "always",
+                "focus": true,
+                "group": "kbd-demo"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "run_os_ec_windowed_kbd",
+            "detail": "Boot UEFI+Windows (GTK) and the EC in parallel, then open a picocom terminal wired to the EC UART for the virtual keyboard demo.",
+            "dependsOn": [
+                "run_os_windowed",
+                "run_ec (logged)",
+                "picocom_ec"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        },
+        {
             "label": "e2e-test",
             "detail": "Run the end-to-end test suite against the secure partition via `make e2e-test`.",
             "type": "shell",

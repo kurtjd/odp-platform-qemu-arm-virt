@@ -54,7 +54,9 @@ RUN apt-get update && \
     make \
     mono-complete \
     npm \
+    picocom \
     sudo \
+    tmux \
     unzip \
     uuid-dev \
     wget \
